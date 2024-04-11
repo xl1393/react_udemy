@@ -142,3 +142,43 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
+
+//destructure, rest operator
+const book = getBook(2);
+//book;
+//const title = book.title;
+//const author = book.author;
+//console.log(author, title);
+
+const {title, author, pages, publicationDate, genres, hasMovieAdaptation} = book;
+console.log(title, author, genres);
+//const primary_genre = genres[0];
+//const secondary_genre = genres[1];
+
+const [primary_genre, secondary_genre, ...others] = genres; // ... only at the end  (REST OPERATOR)
+console.log(primary_genre, secondary_genre, others);
+
+//append to current array
+const new_genres = [...genres, "epic fantasy"]; //... display it one by one
+new_genres;
+
+//update the book object
+const updated_book = {...book, moviePublicationDate:"2024-04-01", pages:1111,};
+updated_book;
+//template literal
+const summary =  `${title} is a book ${2**3}`;
+summary;
+//
+
+//function getYear(str){
+  //return str.split("-")[0];
+//}
+
+const getYear = (str) => str.split("-")[0];
+console.log(getYear(publicationDate));
+// AND operator
+console.log('a' && 'b');
+console.log('b' && 'a');
+// || operator
+console.log(true || 'some string');
+console.log(false || 'some string');
