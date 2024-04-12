@@ -6,3 +6,14 @@ GitHub
 
 React component: Data, logic, apperance.
 nesting component.
+component tree.
+
+component
+	Data:
+		props: props are read only
+			if props are allowed to chang, the original copy are affected
+		state: can be modified
+	logic
+	apperance
+
+React is one-way data flow, data can only be passed from parent to children by using props, but NO children to parents.

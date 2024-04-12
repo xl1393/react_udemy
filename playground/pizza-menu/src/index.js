@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import './index.css';
 const pizzaData = [
     {
       name: "Focaccia",
@@ -48,7 +49,7 @@ const pizzaData = [
   
 
 function App() {
-    return <div>
+    return <div className="container">
         {/*<h1>Hello React!</h1>*/}
         <Header />
         <Menu />
@@ -57,17 +58,36 @@ function App() {
 }
 
 function Header(){
-    return <h1>Fast React Pizza Co.</h1>;
+    return(
+        <header className="header">
+            <h1>Fast React Pizza Co.</h1>;
+        </header>
+    ) 
+    
 }
 
 function Menu(){
-    return (<div>
+    return (<main className="menu">
         <h2> this is our menu</h2>
         <Pizza id={1} />
         <Pizza id={2} />
         <Pizza id={3} />
-    </div>
+        <Pizza2 name='pizza spinaci' ingredients='tomato' photoName='pizzas/spinaci.jpg' price={1000000000000} />
+        <Pizza2 name='pizza spinaci' ingredients='tomato' photoName='pizzas/spinaci.jpg' price={1000} />
+    </main>
     );
+}
+
+function Pizza2(props){
+    return(
+        <div className="pizza">
+            <img src={props.photoName} alt=""/>
+            <div>
+            <h3> This pizza is priced at {props.price + 1}</h3>
+            </div>
+        </div>
+    )
+
 }
 
 function Footer(){
@@ -89,11 +109,11 @@ function Pizza({id}){
     return(
         <div>
             <img src={pizzaData[id].photoName} alt=""/>
-            <h2> this pizza is {pizzaData[id].name}</h2>
+            <h3> This pizza is {pizzaData[id].name}</h3>
         </div>
     )
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-// root.render(<App />);
-root.render(<React.StrictMode><App /></React.StrictMode>); //strict mode
+root.render(<App />);
+//root.render(<React.StrictMode><App /></React.StrictMode>); //strict mode
