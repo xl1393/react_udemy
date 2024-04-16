@@ -1,96 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import Logo from "./Logo";
+import Form from "./Form";
+import { PackingList } from "./PackingList";
+import { Stats } from "./Stats";
 
 const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: true },
+  { id: 1, description: "Passports", quantity: 2, packed: false },
   { id: 2, description: "Socks", quantity: 12, packed: false },
 ];
 
 export default function App() {
+  const [items, setItem] = useState(initialItems);
+  function handelAddItems(item) {
+    setItem((items) => [...items, item]);
+  }
+
+  function handleDeleteItem(id) {
+    setItem((items) => items.filter((item) => item.id !== id));
+  }
+
+  function handleToggleItem(id) {
+    setItem((items) =>
+      items.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item,
+      ),
+    );
+  }
   return (
     <div className="app">
       <Logo />
-      <Form />
-      <PackingList />
-      <Stats />
-    </div>
-  );
-}
-
-function Logo() {
-  return <h1> 🌴 Far Far Away 𐂷</h1>;
-}
-
-function Form() {
-  const [desc, setDesc] = useState("");
-  const [quantity, setQuantity] = useState(5);
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (!desc) return;
-    const newItem = { desc, quantity, packed: false, id: Date.now() };
-    console.log(newItem);
-
-    setDesc("");
-    setQuantity(20);
-  }
-  return (
-    <form className="add-form" onSubmit={handleSubmit}>
-      <h3>what do you need for your travel </h3>
-      <select
-        value={quantity}
-        onChange={(e) => setQuantity(Number(e.target.value))}
-      >
-        {/*
-       <option value={1}>1</option>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
-      */}
-
-        {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
-          <option value={num} key={num}>
-            {num}
-          </option>
-        ))}
-      </select>
-      <input
-        type="text"
-        placeholder="item..."
-        value={desc}
-        onChange={(e) => setDesc(e.target.value)}
+      <Form onAddItems={handelAddItems} />
+      <PackingList
+        items={items}
+        onDeleteItem={handleDeleteItem}
+        onToggleItem={handleToggleItem}
+        setItem={setItem}
       />
-      <button>Add</button>
-    </form>
-  );
-}
-
-function PackingList() {
-  return (
-    <div className="list">
-      <ul>
-        {initialItems.map((item) => (
-          <Item item={item} key={item.id} />
-        ))}
-      </ul>
+      <Stats items={items} />
     </div>
-  );
-}
-
-function Item({ item }) {
-  return (
-    <li>
-      <span style={item.packed ? { textDecoration: "line-through" } : {}}>
-        {item.quantity}
-        {item.description}
-      </span>
-      <button>❌</button>
-    </li>
-  );
-}
-
-function Stats() {
-  return (
-    <footer className="stats">
-      <em>you have x items on your list and you already complete X</em>
-    </footer>
   );
 }
