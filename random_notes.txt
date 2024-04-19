@@ -1,0 +1,28 @@
+vscode: 
+    ESLint 
+    Prettier 
+    Material Icon Theme 
+    GitHub
+
+React component: Data, logic, apperance. nesting component. component tree.
+
+component Data: props: props are read only if props are allowed to chang, the
+original copy are affected state: can be modified logic apperance
+
+React is one-way data flow, data can only be passed from parent to children by
+using props, but NO children to parents.
+
+#set state based on current state: use call back function setStep((s) => s+1)
+not setStep(step +1)
+
+"children" props
+
+component size matters
+
+Array.from(arrayLike)
+Array.from(arrayLike, mapFn)
+Array.from(arrayLike, mapFn, thisArg)
+
+never do       {TabContent({item:content.at(0)})} always use <TabContent />
+
+video 129 130 are important 137
