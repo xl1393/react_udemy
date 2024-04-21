@@ -25,4 +25,10 @@ Array.from(arrayLike, mapFn, thisArg)
 
 never do       {TabContent({item:content.at(0)})} always use <TabContent />
 
-video 129 130 are important 137
+video 129 130 are important also video 137
+state batching
+diff rule
+key rule
+
+dependece array
+effect executed after browser paint
