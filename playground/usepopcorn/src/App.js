@@ -188,10 +188,8 @@ export default function App() {
           const data = await res.json();
           if (data.Response === "False") throw new Error("Movie not Found");
           setMovies(data.Search);
-          console.log(data.Search);
           setIsLoading(false);
         } catch (err) {
-          console.error(err.message);
           setError(err.message);
         } finally {
           setIsLoading(false);
@@ -278,7 +276,6 @@ function MovieDetails({ selectedID, onCloseMovie, onWatched, watched }) {
     };
 
     const watchedIMDB = watched.map((e) => e.imdbID);
-    console.log(watchedIMDB);
     if (watchedIMDB.includes(movie.imdbID)) {
       return;
     }
@@ -286,7 +283,6 @@ function MovieDetails({ selectedID, onCloseMovie, onWatched, watched }) {
     onWatched(newWatchedMovie);
     onCloseMovie();
   }
-  console.log(title, year);
 
   useEffect(
     function () {
