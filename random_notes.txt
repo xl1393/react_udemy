@@ -32,3 +32,8 @@ key rule
 
 dependece array
 effect executed after browser paint
+clean up function   
+    before effect
+    after unmount
+
+"controller, signal, etc"

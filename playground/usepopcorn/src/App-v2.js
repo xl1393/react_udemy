@@ -1,6 +1,53 @@
 import { useState, useEffect } from "react";
 import StarRating from "./StarRating";
 
+const tempMovieData = [
+  {
+    imdbID: "tt1375666",
+    Title: "Inception",
+    Year: "2010",
+    Poster:
+      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
+  },
+  {
+    imdbID: "tt0133093",
+    Title: "The Matrix",
+    Year: "1999",
+    Poster:
+      "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
+  },
+  {
+    imdbID: "tt6751668",
+    Title: "Parasite",
+    Year: "2019",
+    Poster:
+      "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
+  },
+];
+
+const tempWatchedData = [
+  {
+    imdbID: "tt1375666",
+    Title: "Inception",
+    Year: "2010",
+    Poster:
+      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
+    runtime: 148,
+    imdbRating: 8.8,
+    userRating: 10,
+  },
+  {
+    imdbID: "tt0088763",
+    Title: "Back to the Future",
+    Year: "1985",
+    Poster:
+      "https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
+    runtime: 116,
+    imdbRating: 8.5,
+    userRating: 9,
+  },
+];
+
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
@@ -84,6 +131,29 @@ function Movie({ movie, onSelectedMovie }) {
   );
 }
 
+function WatchedBox() {
+  const [watched, setWatched] = useState(tempWatchedData);
+
+  const [isOpen2, setIsOpen2] = useState(true);
+
+  return (
+    <div className="box">
+      <button
+        className="btn-toggle"
+        onClick={() => setIsOpen2((open) => !open)}
+      >
+        {isOpen2 ? "–" : "+"}
+      </button>
+      {isOpen2 && (
+        <>
+          <WatchedSummary watched={watched} />
+          <WatchedMovieList watched={watched} />
+        </>
+      )}
+    </div>
+  );
+}
+
 function WatchedSummary({ watched }) {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
@@ -151,11 +221,14 @@ function WatchedMovie({ movie, onDelete }) {
 const KEY = "1ba0e29e";
 
 export default function App() {
+
+
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
+  const tempquery = "akira";
   const [selectedID, setSelectedId] = useState("");
 
   function handleSelectMovie(id) {
@@ -249,23 +322,33 @@ export default function App() {
 }
 
 function MovieDetails({ selectedID, onCloseMovie, onWatched, watched }) {
-  useEffect(
-    function () {
-      function callback(e) {
+  useEffect(function () {
+    function callback(e){
+      
         if (e.code === "Escape") {
           onCloseMovie();
-        }
+        
       }
-      document.addEventListener("keydown", callback);
+    }
+    document.addEventListener("keydown", callback);
 
-      return function () {
-        document.removeEventListener("keydown", callback);
-      };
-    },
-    [onCloseMovie],
-  );
+    return function(){
+      document.removeEventListener('keydown', callback)
+    }
+  }, [onCloseMovie]);
   const [movie, setMovie] = useState({});
-  const { Title: title, Year: year, Poster: poster, imdbRating } = movie;
+  const {
+    Title: title,
+    Year: year,
+    Poster: poster,
+    Runtime: runtim,
+    imdbRating,
+    Plot: plot,
+    Released: released,
+    Actors: actors,
+    Director: director,
+    Genre: genre,
+  } = movie;
 
   function handelAdd() {
     const newWatchedMovie = {
@@ -320,7 +403,7 @@ function MovieDetails({ selectedID, onCloseMovie, onWatched, watched }) {
         <button className="btn-back" onClick={onCloseMovie}>
           &larr;
         </button>
-        <img src={poster} alt="must have"></img>
+        <img src={poster}></img>
         <div className="rating">
           <StarRating maxRating={7} onRating={setUserRating} />
           <button className="btn-add" onClick={handelAdd}>
