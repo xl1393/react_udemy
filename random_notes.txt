@@ -37,3 +37,7 @@ clean up function
     after unmount
 
 "controller, signal, etc"
+
+useRef
+
+let a = 0; always re-render and reset to 0
