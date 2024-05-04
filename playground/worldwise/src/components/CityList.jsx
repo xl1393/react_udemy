@@ -7,6 +7,7 @@ import Message from "./Message";
 import Spinner from "./Spinner";
 
 function CityList({ cities, isLoading }) {
+  if (isLoading) return <Spinner />;
   if (!cities.length) return <Message message="no cityies" />;
   return (
     <ul className={styles.cityList}>

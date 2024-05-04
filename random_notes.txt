@@ -43,3 +43,12 @@ useRef
 let a = 0; always re-render and reset to 0
 
 setInterval // cleaerInterval pair use
+
+
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+
+
+CreateContext
+useContext
+<PostContext.provider>
