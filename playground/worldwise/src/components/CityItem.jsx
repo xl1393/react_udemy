@@ -3,6 +3,7 @@ import styles from "./CityItem.module.css";
 import { Link } from "react-router-dom";
 function CityItem({ city }) {
   const { cityName, emoji, date, id, position } = city;
+  // eslint-disable-next-line no-unused-vars
   return (
     <li>
       <Link

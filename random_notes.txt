@@ -52,3 +52,5 @@ setInterval // cleaerInterval pair use
 CreateContext
 useContext
 <PostContext.provider>
+extract all provider in one file and use 'children'
+custom hook
