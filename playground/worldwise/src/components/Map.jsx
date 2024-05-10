@@ -34,7 +34,7 @@ function Map() {
   );
   return (
     <div className={styles.mapContainer}>
-      <Button onClick={getLoc} type="position">
+      <Button onClick={() => console.log("getLoc clicked")} type="position">
         {isLoadingPosition ? "Loading..." : "use your position"}
       </Button>
       <MapContainer
