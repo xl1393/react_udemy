@@ -54,3 +54,11 @@ useContext
 <PostContext.provider>
 extract all provider in one file and use 'children'
 custom hook
+
+useMemo: {} does not equal to {}, so passing props, even the same, will re-render. so use useMemo  
+    but function from useStat is always the same one, does not trigger re-render.
+useCallback
+
+optimize context 
+
+lazy() + <Suspense />
