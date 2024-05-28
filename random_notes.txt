@@ -62,3 +62,26 @@ useCallback
 optimize context 
 
 lazy() + <Suspense />
+
+
+Redux: combine reducer, root reducer, createStore
+        "slice" part of the store. export reducer and action function.
+        slice file contain all logic of one reducer
+        store.js will import all reducer and combine them into 1 root reducer.
+        
+        react-redux: <Provider store={store}> </Provider>, import {Provider} from "react-redux"
+        useSelector from "react-redux"
+        const customer = useSelector((store) => store.customer.fullName) //one of the reducer from root reducer/root store
+
+        const dispatch = useDispatch() (import from react-redux)
+
+        applyMiddleware(thunk) use react thunk as middle ware.
+        "return a async function, redux will know it is async and run it first" in thunk.
+
+
+        dispatch the following whole thing:
+        return async function(dispatch, getState){
+            ...
+            ...outside api call
+            dispatch({some logic})
+        }
